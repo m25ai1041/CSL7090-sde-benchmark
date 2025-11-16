@@ -1,0 +1,26 @@
+auth:
+  username: testuser
+  password: Admin123!
+  database: testdb
+
+primary:
+  resources:
+    requests:
+      cpu: "1"
+      memory: "2Gi"
+    limits:
+      cpu: "2"
+      memory: "3Gi"
+  persistence:
+    enabled: true
+    size: 40Gi
+
+extendedConfiguration: |
+  shared_buffers = '3GB'
+  work_mem = '32MB'
+  maintenance_work_mem = '512MB'
+  max_connections = 200
+  wal_buffers = '128MB'
+  synchronous_commit = off
+  checkpoint_timeout = '10min'
+  effective_io_concurrency = 200

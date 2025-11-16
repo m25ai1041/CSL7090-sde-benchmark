@@ -1,0 +1,23 @@
+replicaCount: 1
+
+image:
+  repository: baseline-api
+  tag: "latest"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 8000
+
+config:
+  APP_MODE: "prod"
+  LOG_LEVEL: "info"
+  SERVICE_NAME: "baseline-api"
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 200Mi
+  limits:
+    cpu: 300m
+    memory: 400Mi

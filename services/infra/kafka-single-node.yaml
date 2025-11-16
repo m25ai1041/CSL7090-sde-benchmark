@@ -1,0 +1,60 @@
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaNodePool
+metadata:
+  name: kafka-brokers
+  namespace: sde-benchmark
+  labels:
+    strimzi.io/cluster: kafka-sde-benchmark
+spec:
+  replicas: 1
+  roles:
+    - controller
+    - broker
+  storage:
+    type: persistent-claim
+    size: 5Gi
+    deleteClaim: false
+  resources:
+    requests:
+      memory: 512Mi
+      cpu: 300m
+    limits:
+      memory: 1Gi
+      cpu: 500m
+  jvmOptions:
+    -Xmx: 512m
+    -Xms: 256m
+
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: Kafka
+metadata:
+  name: kafka-sde-benchmark
+  namespace: sde-benchmark
+  annotations:
+    strimzi.io/node-pools: enabled
+    strimzi.io/kraft: enabled
+spec:
+  kafka:
+    version: 4.0.0
+    metadataVersion: 4.0-IV2
+    listeners:
+      - name: plain
+        port: 9092
+        type: nodeport
+        tls: false
+      - name: tls
+        port: 9093
+        type: internal
+        tls: true
+    config:
+      offsets.topic.replication.factor: 1
+      transaction.state.log.replication.factor: 1
+      default.replication.factor: 1
+      min.insync.replicas: 1
+      num.network.threads: 3
+      num.io.threads: 8
+      log.retention.hours: 24
+  entityOperator:
+    topicOperator: {}
+    userOperator: {}

@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: optimized-api
+  labels:
+    app: optimized-api
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: optimized-api
+  template:
+    metadata:
+      labels:
+        app: optimized-api
+    spec:
+      containers:
+        - name: optimized-api
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+          ports:
+            - containerPort: {{ .Values.service.port }}
+
+          envFrom:
+            - configMapRef:
+                name: optimized-api-config
+
+          resources:
+            {{- toYaml .Values.resources | nindent 12 }}
