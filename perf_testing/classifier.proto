@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+service Classifier {
+  rpc Classify(ClassificationRequest) returns (ClassificationResponse);
+}
+
+message ClassificationRequest {
+  string customer_id = 1;
+  string review_text = 2;
+}
+
+message ClassificationResponse {
+  string customer_id = 1;
+  string segment = 2;
+  float confidence = 3;
+}

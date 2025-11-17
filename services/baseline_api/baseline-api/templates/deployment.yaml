@@ -20,10 +20,8 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - containerPort: {{ .Values.service.port }}
-
           envFrom:
             - configMapRef:
                 name: baseline-api-config
-
           resources:
             {{- toYaml .Values.resources | nindent 12 }}

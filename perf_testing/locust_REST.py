@@ -16,20 +16,20 @@ class ClassifierUser(HttpUser):
     
     def on_start(self):
         # Diverse test data for realistic testing
-    self.reviews = [
-        # Normal reviews
-        "Excellent product! Highly recommend.",
-        "Terrible quality, waste of money.",
-        "Average, nothing special.",
-        "",                      # empty string
-        "     ",                 # whitespace only
-        "Great! " * 100,         # very long repeated text
-        # Mixed sentiment
-        "The product is great but shipping was terrible.",
-        "Good value but I had some minor problems.",
-        "Fantastic features but I still feel unhappy with the performance.",
-        45.6,              
-        ]
+        self.reviews = [
+            # Normal reviews
+            "Excellent product! Highly recommend.",
+            "Terrible quality, waste of money.",
+            "Average, nothing special.",
+            "",                      # empty string
+            "     ",                 # whitespace only
+            "Great! " * 100,         # very long repeated text
+            # Mixed sentiment
+            "The product is great but shipping was terrible.",
+            "Good value but I had some minor problems.",
+            "Fantastic features but I still feel unhappy with the performance.",
+            45.6,              
+            ]
     
     @task
     def classify(self):
@@ -60,7 +60,7 @@ class ClassifierUser(HttpUser):
 def on_test_stop(environment, **kwargs):
     """Calculate and display key statistics"""
     print("\n" + "="*70)
-    print("Perf Test Results Summary")
+    print("Perf Test Results Summary (REST)")
     print("="*70)
     
     stats = environment.stats

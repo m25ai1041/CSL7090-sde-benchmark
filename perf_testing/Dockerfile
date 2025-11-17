@@ -5,7 +5,12 @@ FROM locustio/locust:latest
 WORKDIR /tmp
 
 # Copy your test file into the container
-COPY locust.py /tmp/locust.py
+COPY locust_REST.py /tmp/locust_REST.py
+COPY locust_gRPC.py /tmp/locust_gRPC.py
+COPY classifier.proto .
+
+RUN pip install --upgrade pip setuptools grpcio grpcio-tools
+RUN python -m grpc_tools.protoc -I. --python_out=. --grpc_python_out=. classifier.proto
 
 # Expose Locust web UI port
 EXPOSE 8089
