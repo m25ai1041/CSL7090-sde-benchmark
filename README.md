@@ -102,7 +102,7 @@ minikube image load baseline-api:latest
 
 ```
 
-(Note: If not using a local cluster like Minikube, you must push these images to a container registry like Docker Hub or GCR).
+
 
 ### Step 2: Deploy to Kubernetes
 
