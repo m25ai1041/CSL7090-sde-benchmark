@@ -8,16 +8,24 @@ image:
 service:
   type: ClusterIP
   port: 9000
+  targetPort: 50051
 
 config:
-  APP_MODE: "prod"
   LOG_LEVEL: "info"
   SERVICE_NAME: "optimized-api"
+  DB_HOST: "postgres-sde-benchmark-postgresql.sde-benchmark.svc.cluster.local"
+  DB_PORT: "5432"
+  DB_USER: "testuser"
+  DB_NAME: "testdb"
+
+postgres:
+  secretName: "postgres-sde-benchmark-postgresql"
+  passwordKey: "password"
 
 resources:
   requests:
     cpu: 100m
-    memory: 200Mi
+    memory: 128Mi
   limits:
     cpu: 300m
-    memory: 400Mi
+    memory: 256Mi

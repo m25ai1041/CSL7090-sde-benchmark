@@ -1,5 +1,12 @@
 syntax = "proto3";
 
+// This new message type is needed for the history
+message HistoryEntry {
+    string timestamp = 1;
+    string segment = 2;
+    float confidence = 3;
+}
+
 service Classifier {
   rpc Classify(ClassificationRequest) returns (ClassificationResponse);
 }
@@ -10,7 +17,11 @@ message ClassificationRequest {
 }
 
 message ClassificationResponse {
-  string customer_id = 1;
-  string segment = 2;
-  float confidence = 3;
+  string request_id = 1;
+  string customer_id = 2;
+  string segment = 3;
+  float confidence = 4;
+  int32 history_count = 5;
+  repeated HistoryEntry recent_classifications = 6;
+  float processing_time_ms = 7;
 }

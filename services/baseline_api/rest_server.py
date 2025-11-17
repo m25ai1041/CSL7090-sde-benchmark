@@ -25,8 +25,8 @@ DB_PASSWORD = os.environ.get("DB_PASSWORD")
 
 # Configuration from environment
 MAX_TEXT_LENGTH = int(os.environ.get("MAX_TEXT_LENGTH", "10000"))
-DB_MAX_POOL = int(os.environ.get("DB_MAX_POOL", "50"))
-DB_MIN_POOL = int(os.environ.get("DB_MIN_POOL", "5"))
+DB_MAX_POOL = int(os.environ.get("DB_MAX_POOL", "10"))
+DB_MIN_POOL = int(os.environ.get("DB_MIN_POOL", "1"))
 DB_CONN_TIMEOUT = int(os.environ.get("DB_CONN_TIMEOUT", "5"))
 MAX_REQUEST_SIZE = int(os.environ.get("MAX_REQUEST_SIZE", "1048576"))  # 1MB default
 
@@ -117,15 +117,6 @@ def health():
 def classify():
     """
     Main classification endpoint.
-    
-    Performs:
-    1. Input validation (type, size, required fields)
-    2. Text preprocessing (pure Python)
-    3. ML model inference
-    4. Database write (INSERT)
-    5. Database read (SELECT recent history)
-    
-    This demonstrates realistic API behavior with both read and write operations.
     """
     # Generate request ID for tracing
     request_id = request.headers.get('X-Request-ID', str(uuid.uuid4()))
@@ -287,7 +278,7 @@ def classify():
         "classification": segment,
         "confidence": confidence,
         "history_count": len(history),
-        "recent_classifications": history[:2],  # Return only top 2
+        "recent_classifications": history[:2],
         "processing_time_ms": round(processing_time_ms, 2)
     })
     

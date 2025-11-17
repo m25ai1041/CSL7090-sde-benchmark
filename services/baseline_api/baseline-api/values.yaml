@@ -10,7 +10,6 @@ service:
   port: 8000
 
 config:
-  APP_MODE: "prod"
   LOG_LEVEL: "info"
   SERVICE_NAME: "baseline-api"
   DB_HOST: "postgres-sde-benchmark-postgresql.sde-benchmark.svc.cluster.local"

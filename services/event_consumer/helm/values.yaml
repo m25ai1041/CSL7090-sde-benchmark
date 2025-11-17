@@ -10,7 +10,6 @@ service:
   port: 9000
 
 config:
-  APP_MODE: "prod"
   LOG_LEVEL: "info"
   SERVICE_NAME: "event-consumer"
 

@@ -57,7 +57,7 @@ class ClassifierUser(HttpUser):
         }
         
         start = time.time()
-        response = self.client.post("/classify", json=payload, name="POST /classify")
+        response = self.client.post("/classify", json=payload, name="POST /classify", timeout=30)
         
         rt = (time.time() - start) * 1000
         metrics['response_times'].append(rt)
